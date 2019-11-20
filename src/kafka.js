@@ -6,6 +6,7 @@ const JournalRec = require('./models/journalrec')
 try {
     console.log('Kafka Consumer is booting up ... (kafkaHost:'+kafkaHost + ' kafkaTopic:' + kafkaTopic + ')')
     //const client = new kafka.KafkaClient(kafkaHost)
+	console.log("100 Consumer1 part - open JN");//---------------------------------		
 	const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
     const topics = [
         {
@@ -20,25 +21,10 @@ try {
         encoding: 'utf8', 
         fromOffset: false
     }
-    
-    console.log("200 Consumer1 part JH");//---------------------------------		
-	var Consumer = kafka.Consumer,
-     consumer1 = new Consumer(
-        client,
-        [
-            { topic: 'warehouse-movement', partition: 0 }
-        ],
-        {
-            autoCommit: false
-        }
-    );
-	console.log("210 Consumer1 part - nactu");//---------------------------------
-	consumer1.on('message', function (message) {
-		console.log(message);
-    });	
-
-		
+    	
 	const consumer = new kafka.Consumer(client, topics, options)
+	
+	console.log("110 Consumer1 part - nactu JN");//---------------------------------
     consumer.on('message', async (message) => {    
         const journalrec = new JournalRec(JSON.parse(message.value))
         try {
@@ -53,7 +39,21 @@ try {
         console.log('Consumer.on error' + err)
     })
 	
-	
+    console.log("200 Consumer1 part - open JH");//---------------------------------		
+	var Consumer = kafka.Consumer,
+     consumer1 = new Consumer(
+        client,
+        [
+            { topic: 'warehouse-movement', partition: 0 }
+        ],
+        {
+            autoCommit: true
+        }
+    );
+	console.log("210 Consumer1 part - nactu JH");//---------------------------------
+	consumer1.on('message', function (message) {
+		console.log(message);
+    });		
 
 }catch(e) {
     console.log(e)
