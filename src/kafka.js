@@ -10,7 +10,7 @@ try {
 	console.log("100 Consumer1 part - open JN k kafkaHostEnv");//---------------------------------		
 	//const client = new kafka.KafkaClient(kafkaHost)
 	//const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
-	const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv ':9092'});
+	const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':9092'});
     const topics = [
         {
             topic: kafkaTopic, 
