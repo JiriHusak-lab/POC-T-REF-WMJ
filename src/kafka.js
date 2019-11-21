@@ -5,8 +5,9 @@ const JournalRec = require('./models/journalrec')
 
 try {
     console.log('Kafka Consumer is booting up ... (kafkaHost:'+kafkaHost + ' kafkaTopic:' + kafkaTopic + ')')
-    //const client = new kafka.KafkaClient(kafkaHost)
+    
 	console.log("100 Consumer1 part - open JN");//---------------------------------		
+	//const client = new kafka.KafkaClient(kafkaHost)
 	const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
     const topics = [
         {
@@ -38,7 +39,7 @@ try {
     consumer.on('error', (err) => {
         console.log('Consumer.on error' + err)
     })
-	
+/*
     console.log("200 Consumer1 part - open JH");//---------------------------------		
 	var Consumer = kafka.Consumer,
      consumer1 = new Consumer(
@@ -54,7 +55,7 @@ try {
 	consumer1.on('message', function (message) {
 		console.log(message);
     });		
-
+*/
 }catch(e) {
     console.log(e)
 }
