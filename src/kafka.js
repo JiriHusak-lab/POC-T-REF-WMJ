@@ -1,3 +1,4 @@
+const kafkaHostEnv = process.env.KAFKA_HOST_ENV
 const kafkaHost = process.env.KAFKA_HOST
 const kafkaTopic = process.env.KAFKA_TOPIC
 const kafka = require('kafka-node')
@@ -8,8 +9,8 @@ try {
     
 	console.log("100 Consumer1 part - open JN");//---------------------------------		
 	//const client = new kafka.KafkaClient(kafkaHost)
-	//const client = new kafka.KafkaClient(kafkaHost)
-	const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
+	//const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
+	const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv ':9092'});
     const topics = [
         {
             topic: kafkaTopic, 
