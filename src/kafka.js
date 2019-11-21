@@ -7,8 +7,9 @@ try {
     console.log('Kafka Consumer is booting up ... (kafkaHost:'+kafkaHost + ' kafkaTopic:' + kafkaTopic + ')')
     
 	console.log("100 Consumer1 part - open JN");//---------------------------------		
-	const client = new kafka.KafkaClient(kafkaHost)
-	//const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
+	//const client = new kafka.KafkaClient(kafkaHost)
+	//const client = new kafka.KafkaClient(kafkaHost)
+	const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
     const topics = [
         {
             topic: kafkaTopic, 
