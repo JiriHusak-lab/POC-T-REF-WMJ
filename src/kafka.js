@@ -28,9 +28,13 @@ try {
 
 	
 	console.log(mDateStr + ': 100 Kafka PRODUCER part start');//---------------------------------
+	var Producer = kafka.Producer;
+	var KeyedMessage = kafka.KeyedMessage;
+	
 	var mDate = new Date();
 	var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	var mMatid = mDate.toString('h:mm');
+	
 	var	producer = new Producer(client),
 		km = new KeyedMessage('key', 'message'),
 		payloads = [
