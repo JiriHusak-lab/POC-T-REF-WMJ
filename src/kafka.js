@@ -34,18 +34,21 @@ try {
 	var mDate = new Date();
 	var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	var mMatid = mDate.toString('h:mm');
+	//var jsonmsg = {  "mnozstvi": 8,  "mvm1": "wh1",  "mvm2": "wh2",  "kmat": "mat"+mMatid+"1",  "hmotnost": 12}
 	
 	var	producer = new Producer(client),
 		km = new KeyedMessage('key', 'message'),
 		payloads = [
-			{  "mnozstvi": 8,  "mvm1": "wh1",  "mvm2": "wh2",  "kmat": "mat"+mMatid+"1",  "hmotnost": 12}
+		//{ topic: 'warehouse-movement', messages: '{"mnozstvi":8,"mvm1":"wh1","mvm2":"wh2","kmat":"mat001","hmotnost":12}', partition: 0 }
+		{ topic: 'warehouse-movement', messages: 'PEPIK', partition: 0 }
 		];
+	console.log(mDateStr + ': 110 PRED Kafka PRODUCER.on')
 	producer.on('ready', function () {
 		producer.send(payloads, function (err, data) {
 			console.log(data);
 			console.log(mDateStr + ': 009 Producer.on ready');
 		});
-		console.log("010 Producer.on ready");
+		console.log("140 Producer.on ready");
 	});
 	console.log("200 Kafka PRODUCER part END");//---------------------------------
 	
