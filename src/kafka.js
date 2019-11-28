@@ -36,15 +36,24 @@ try {
 	const moment = require('moment');
 	m = moment().format('[The time is] h:mm:ss a'); 
 	//var mMatid = mDate.toString('ddhmm');
-	var mMatid = moment().format('dhmm'); 
+	var mMatid = moment().format('Dhmm'); 
 	console.log(mDateStr + ': 103 Kafka PRODUCER; mMatid:' + mMatid);
 	var jsonmsg = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'b\",\"hmotnost\":12}'
 	
 	var	producer = new Producer(client),
 		km = new KeyedMessage('key', 'message'),
 		payloads = [
-		{ topic: 'warehouse-movement', messages: '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}', partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsg, partition: 0 }
+		//{ topic: 'warehouse-movement', messages: '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}', partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsg + 'a', partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsg + 'b', partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsg + 'c', partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsg + 'd', partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsg + 'e', partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsg + 'f', partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsg + 'g', partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsg + 'h', partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsg + 'i', partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsg + 'j', partition: 0 }
 		];
 	console.log(mDateStr + ': 110 PRED Kafka PRODUCER.on')
 	producer.on('ready', function () {
