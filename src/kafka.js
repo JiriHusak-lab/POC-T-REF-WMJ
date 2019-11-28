@@ -38,22 +38,31 @@ try {
 	//var mMatid = mDate.toString('ddhmm');
 	var mMatid = moment().format('Dhmm'); 
 	console.log(mDateStr + ': 103 Kafka PRODUCER; mMatid:' + mMatid);
-	var jsonmsg = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'b\",\"hmotnost\":12}'
+	var jsonmsga = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}'
+	var jsonmsgb = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'b\",\"hmotnost\":12}'
+	var jsonmsgc = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'c\",\"hmotnost\":12}'
+	var jsonmsgd = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'd\",\"hmotnost\":12}'
+	var jsonmsge = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'e\",\"hmotnost\":12}'
+	var jsonmsgf = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'f\",\"hmotnost\":12}'
+	var jsonmsgg = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'g\",\"hmotnost\":12}'
+	var jsonmsgh = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'h\",\"hmotnost\":12}'
+	var jsonmsgi = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'i\",\"hmotnost\":12}'
+	var jsonmsgj = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'j\",\"hmotnost\":12}'
 	
 	var	producer = new Producer(client),
 		km = new KeyedMessage('key', 'message'),
 		payloads = [
 		//{ topic: 'warehouse-movement', messages: '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}', partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsg + 'a', partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsg + 'b', partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsg + 'c', partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsg + 'd', partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsg + 'e', partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsg + 'f', partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsg + 'g', partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsg + 'h', partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsg + 'i', partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsg + 'j', partition: 0 }
+		{ topic: 'warehouse-movement', messages: jsonmsga, partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsgb, partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsgc, partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsgd, partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsge, partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsgf, partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsgg, partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsgh, partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsgi, partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsgj, partition: 0 }
 		];
 	console.log(mDateStr + ': 110 PRED Kafka PRODUCER.on')
 	producer.on('ready', function () {
