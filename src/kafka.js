@@ -10,8 +10,8 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 try {
     console.log(mDateStr + ': Kafka Consumer is booting up ... (ENVs: kafkaHost:'+kafkaHost + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )')
     //const client = new kafka.KafkaClient(kafkaHost)
-    //const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':9092'});
-    const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
+    const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':9092'});
+    //const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
     const topics = [
         {
             topic: kafkaTopic, 
@@ -25,11 +25,33 @@ try {
         encoding: 'utf8', 
         fromOffset: false
     }
-    
+
+	
+	console.log(mDateStr + ': 100 Kafka PRODUCER part start');//---------------------------------
+	var mDate = new Date();
+	var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
+	var mMatid = mDate.toString('h:mm');
+	var	producer = new Producer(client),
+		km = new KeyedMessage('key', 'message'),
+		payloads = [
+			{  "mnozstvi": 8,  "mvm1": "wh1",  "mvm2": "wh2",  "kmat": "mat"+mMatid+"1",  "hmotnost": 12}
+		];
+	producer.on('ready', function () {
+		producer.send(payloads, function (err, data) {
+			console.log(data);
+			console.log(mDateStr + ': 009 Producer.on ready');
+		});
+		console.log("010 Producer.on ready");
+	});
+	console.log("200 Kafka PRODUCER part END");//---------------------------------
+	
+	
+	
+	// Consumer PART --------------------------------------------
+	/*
     const consumer = new kafka.Consumer(client, topics, options)
 
     consumer.on('message', async (message) => {    
-
         const journalrec = new JournalRec(JSON.parse(message.value))
         try {
             await journalrec.save()
@@ -48,6 +70,9 @@ try {
         var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
         console.log(mDateStr + ': Consumer on error' + err)
     })
+	*/
+	// END Consumer PART --------------------------------------------
+	
 }catch(e) {
     console.log(e)
 }
