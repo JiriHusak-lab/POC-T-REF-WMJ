@@ -3,6 +3,7 @@ const kafkaHostEnv = process.env.KAFKA_HOST_ENV
 const kafkaTopic = process.env.KAFKA_TOPIC
 const kafka = require('kafka-node')
 const JournalRec = require('./models/journalrec')
+const podIP = process.env.MY_POD_IP
 
 var mDate = new Date();
 var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
@@ -36,7 +37,7 @@ try {
 	const moment = require('moment');
 	m = moment().format('[The time is] h:mm:ss a'); 
 	//var mMatid = mDate.toString('ddhmm');
-	var mMatid = moment().format('Dhmm'); 
+	var mMatid = podIP + '-' + moment().format('Dhmm'); 
 	console.log(mDateStr + ': 103 Kafka PRODUCER; mMatid:' + mMatid);
 	var jsonmsga = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}'
 	var jsonmsgb = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'b\",\"hmotnost\":12}'
