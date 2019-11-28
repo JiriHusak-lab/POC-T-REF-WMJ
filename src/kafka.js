@@ -33,14 +33,15 @@ try {
 	
 	var mDate = new Date();
 	var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
-	var mMatid = mDate.toString('dhm');
-	//var jsonmsg = {  "mnozstvi": 8,  "mvm1": "wh1",  "mvm2": "wh2",  "kmat": "mat"+mMatid+"1",  "hmotnost": 12}
+	var mMatid = mDate.toString('ddhmm');
+	console.log(mDateStr + ': 103 Kafka PRODUCER; mMatid:' + mMatid);
+	var jsonmsg = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'b\",\"hmotnost\":12}'
 	
 	var	producer = new Producer(client),
 		km = new KeyedMessage('key', 'message'),
 		payloads = [
-		{ topic: 'warehouse-movement', messages: '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat\"'+ mMatid + ',\"hmotnost\":12}', partition: 0 }
-		//{ topic: 'warehouse-movement', messages: 'PEPIK', partition: 0 }
+		{ topic: 'warehouse-movement', messages: '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}', partition: 0 },
+		{ topic: 'warehouse-movement', messages: jsonmsg, partition: 0 }
 		];
 	console.log(mDateStr + ': 110 PRED Kafka PRODUCER.on')
 	producer.on('ready', function () {
