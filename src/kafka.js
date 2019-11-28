@@ -35,7 +35,8 @@ try {
 	var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	const moment = require('moment');
 	m = moment().format('[The time is] h:mm:ss a'); 
-	var mMatid = mDate.toString('ddhmm');
+	//var mMatid = mDate.toString('ddhmm');
+	var mMatid = moment().format('dhmm'); 
 	console.log(mDateStr + ': 103 Kafka PRODUCER; mMatid:' + mMatid);
 	var jsonmsg = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'b\",\"hmotnost\":12}'
 	
