@@ -29,7 +29,7 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 
 	
 	console.log(mDateStr + ': 100 Kafka PRODUCER part start');//---------------------------------
-	var Producer = kafka.Producer;
+	const Producer = kafka.Producer;
 	var KeyedMessage = kafka.KeyedMessage;
 	
 	var mDate = new Date();
@@ -50,26 +50,26 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	var jsonmsgi = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'i\",\"hmotnost\":12}';
 	var jsonmsgj = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'j\",\"hmotnost\":12}';
 	
-	var	producer = new Producer(client);
-	km = new KeyedMessage('key', 'message');
-	payloads = [
+	const	producer = new Producer(client);
+	//km = new KeyedMessage('key', 'message');
+	let payload = [
 		//{ topic: 'warehouse-movement', messages: '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}', partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsga, partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsgb, partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsgc, partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsgd, partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsge, partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsgf, partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsgg, partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsgh, partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsgi, partition: 0 },
-		{ topic: 'warehouse-movement', messages: jsonmsgj, partition: 0 }
+		{ topic: 'warehouse-movement', messages: jsonmsga, partition: 0 }
+		//{ topic: 'warehouse-movement', messages: jsonmsgb, partition: 0 },
+		//{ topic: 'warehouse-movement', messages: jsonmsgc, partition: 0 },
+		//{ topic: 'warehouse-movement', messages: jsonmsgd, partition: 0 },
+		//{ topic: 'warehouse-movement', messages: jsonmsge, partition: 0 },
+		//{ topic: 'warehouse-movement', messages: jsonmsgf, partition: 0 },
+		//{ topic: 'warehouse-movement', messages: jsonmsgg, partition: 0 },
+		//{ topic: 'warehouse-movement', messages: jsonmsgh, partition: 0 },
+		//{ topic: 'warehouse-movement', messages: jsonmsgi, partition: 0 },
+		//{ topic: 'warehouse-movement', messages: jsonmsgj, partition: 0 }
 		];
 	
 	console.log(mDateStr + ': 110 PRED Kafka PRODUCER.on');
 	producer.on('ready', function () {
 		console.log(mDateStr + ': 111 PRED Kafka PRODUCER.SEND');
-		producer.send(payloads, function (err, data) {
+		producer.send(payload, function (err, data) {
 			console.log(data);
 			console.log(mDateStr + ': 009 Producer.on ready');
 		});
