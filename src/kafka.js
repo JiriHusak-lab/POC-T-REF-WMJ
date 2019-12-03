@@ -36,8 +36,6 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	var jsonmsgh = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'h\",\"hmotnost\":12}';
 	var jsonmsgi = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'i\",\"hmotnost\":12}';
 	var jsonmsgj = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'j\",\"hmotnost\":12}';
-	
-	const	producer = new Producer(client);
 
 	let payload = [
 		//{ topic: 'warehouse-movement', messages: '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}', partition: 0 },
