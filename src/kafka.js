@@ -96,7 +96,9 @@ try {
 			console.log("340 Producer.on ready");
 		});
 		
-		await sleep(60000);
+		setTimeout(function(){
+			i++;
+		}, 3000);
 		
 	}
 	console.log("400 Kafka PRODUCER WHILE part END");//---------------------------------
