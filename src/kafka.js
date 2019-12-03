@@ -9,9 +9,8 @@ const podIP = process.env.MY_POD_IP
 var mDate = new Date();
 var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 
-try {
+//try {
     console.log(mDateStr + ': Ver20191203:16:25 Kafka Consumer is booting up ... (ENVs: kafkaHost:\"' + kafkaHost + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
-    //const client = new kafka.KafkaClient(kafkaHost)
     //const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':9092'});
     const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
     const topics = [
@@ -99,6 +98,7 @@ try {
 		// execute code as long as condition is true
 		var mMatid = podIP + '-' + moment().format('DDhhmm'); 
 		var jsonmsgX = '{\"mnozstvi\":8,\"mvm3\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}'
+		console.log(mDateStr + ': 308 jsonmsgX:' + jsonmsgX);
 		
 		var	producer = new Producer(client),
 		km = new KeyedMessage('key', 'message'),
@@ -174,9 +174,9 @@ try {
 	*/
 	// END Consumer PART --------------------------------------------
 	
-}catch(e) {
-    console.log(e)
-}
+//}catch(e) {
+//    console.log(mDateStr + ': HLAVNI Catch' + e)
+//}
 
 function sleep(time, callback) {
     var stop = new Date().getTime();
