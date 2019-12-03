@@ -103,7 +103,7 @@ try {
 				console.log(mDateStr + ':Sent data:' + data);
 				console.log(mDateStr + ': 309 Producer.on ready');
 			});
-			console.log(mDateStr + ':340 Producer.on ready");
+			console.log(mDateStr + ':340 Producer.on ready');
 		});
 
 		var mDate = new Date();
