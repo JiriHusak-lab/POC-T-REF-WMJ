@@ -13,14 +13,10 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
     console.log(mDateStr + ': Ver20191203:21:41 Kafka Consumer is booting up ... (ENVs: kafkaHost:\"' + kafkaHost + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
 	
 	const Producer = kafka.Producer;
-    //const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':9092'});
     const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
 	const producer = new Producer(client);
 	
 	console.log(mDateStr + ': 100 Kafka PRODUCER part start');//---------------------------------
-
-	//var KeyedMessage = kafka.KeyedMessage;
-	
 	var mDate = new Date();
 	var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	const moment = require('moment');
@@ -50,6 +46,61 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 		//{ topic: 'warehouse-movement', messages: jsonmsgi, partition: 0 },
 		//{ topic: 'warehouse-movement', messages: jsonmsgj, partition: 0 }
 		];
+	
+	
+	
+	
+	
+	
+	
+		console.log(mDateStr + ': 010 PETR PRED Kafka PRODUCER.on');
+	    producer.on('ready', async function() {
+			console.log(mDateStr + ': Kafka Producer is Ready to communicate with Kafka on: ' + kafkaHost + ':' + kafkaPort);
+            let push_status = producer.send(payload, function (err, data) {
+                if (err) {
+                    console.log('Broker update failed: ' + err);
+                    cb(err);
+                } else {
+                    console.log('Broker update success: ' + data);
+                    cb(resp,null);
+                }
+            });
+        })
+    
+        producer.on('error', function(err) {
+            console.log(err);
+            console.log(mDateStr + ': [kafka-producer -> '+kafkaTopic+']: connection errored');
+            throw err;
+        })
+		console.log(mDateStr + ': 020 PETR PO Kafka PRODUCER.on');
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	console.log(mDateStr + ': 110 PRED Kafka PRODUCER.on');
 	producer.on('ready', async function () {
