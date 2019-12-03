@@ -86,7 +86,7 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 
 
 
-			producer.send(payloads, function (err, data) {
+			producer.send(payload, function (err, data) {
 				console.log(mDateStr + ':Sent data:' + data);
 				console.log(mDateStr + ': 309 Producer.on ready');
 			});	
@@ -101,13 +101,11 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 		var jsonmsgX = '{\"mnozstvi\":8,\"mvm3\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}'
 		console.log(mDateStr + ': 308 jsonmsgX:' + jsonmsgX);
 		
-		var	producer = new Producer(client);
-		km = new KeyedMessage('key', 'message');
-		payloads = [
+		payload = [
 				{ topic: 'warehouse-movement', messages: jsonmsgX, partition: 0 }
 		];
 
-			producer.send(payloads, function (err, data) {
+			producer.send(payload, function (err, data) {
 				console.log(mDateStr + ':Sent data:' + data);
 				console.log(mDateStr + ': 309 Producer.on ready');
 			});
