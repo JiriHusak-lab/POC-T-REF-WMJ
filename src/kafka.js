@@ -96,10 +96,19 @@ try {
 			console.log("340 Producer.on ready");
 		});
 		
-		setTimeout(function(){
-			i++;
-		}, 3000);
+        producer.on('error', (err) => {
+			mDate = new Date();
+			var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
+			console.log(mDateStr + ': Producer WHILE on error' + err)
+		})		
 		
+		//setTimeout(function(){
+		//	i++;
+		//}, 3000);
+		
+		sleep(60000, function() {
+			// executes after one second, and blocks the thread
+		});
 	}
 	console.log("400 Kafka PRODUCER WHILE part END");//---------------------------------
 	
@@ -132,4 +141,12 @@ try {
 	
 }catch(e) {
     console.log(e)
+}
+
+function sleep(time, callback) {
+    var stop = new Date().getTime();
+    while(new Date().getTime() < stop + time) {
+        ;
+    }
+    callback();
 }
