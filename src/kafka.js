@@ -76,6 +76,31 @@ try {
 	console.log("200 Kafka PRODUCER part END");//---------------------------------
 	
 	
+	console.log(mDateStr + ': 300 Kafka PRODUCER WHILE part start');//---------------------------------
+	while (true) {
+		// execute code as long as condition is true
+		var mMatid = podIP + '-' + moment().format('DDhhmm'); 
+		var jsonmsgX = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}'
+		
+		var	producer = new Producer(client),
+		km = new KeyedMessage('key', 'message'),
+		payloads = [
+				{ topic: 'warehouse-movement', messages: jsonmsgX, partition: 0 }
+		];
+		console.log(mDateStr + ': 310 PRED Kafka PRODUCER.on WHILE')
+		producer.on('ready', function () {
+			producer.send(payloads, function (err, data) {
+				console.log(data);
+				console.log(mDateStr + ': 309 Producer.on ready');
+			});
+			console.log("340 Producer.on ready");
+		});
+		
+		await sleep(60000);
+		
+	}
+	console.log("400 Kafka PRODUCER WHILE part END");//---------------------------------
+	
 	
 	// Consumer PART --------------------------------------------
 	/*
