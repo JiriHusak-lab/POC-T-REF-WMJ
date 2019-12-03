@@ -10,33 +10,20 @@ var mDate = new Date();
 var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 
 //try {
-    console.log(mDateStr + ': Ver20191203:16:25 Kafka Consumer is booting up ... (ENVs: kafkaHost:\"' + kafkaHost + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
+    console.log(mDateStr + ': Ver20191203:21:41 Kafka Consumer is booting up ... (ENVs: kafkaHost:\"' + kafkaHost + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
+	
+	const Producer = kafka.Producer;
     //const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':9092'});
     const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
-    const topics = [
-        {
-            topic: kafkaTopic, 
-            partition: 0
-        }
-    ]
-    const options = {
-        autoCommit: true, 
-        fetchMaxWaitMs: 1000, 
-        fetchMaxBytes: 1024 * 1024, 
-        encoding: 'utf8', 
-        fromOffset: false
-    };
-
+	const producer = new Producer(client);
 	
 	console.log(mDateStr + ': 100 Kafka PRODUCER part start');//---------------------------------
-	const Producer = kafka.Producer;
-	var KeyedMessage = kafka.KeyedMessage;
+
+	//var KeyedMessage = kafka.KeyedMessage;
 	
 	var mDate = new Date();
 	var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	const moment = require('moment');
-	m = moment().format('[The time is] h:mm:ss a'); 
-	//var mMatid = mDate.toString('ddhmm');
 	var mMatid = podIP + '-' + moment().format('DDhhmm'); 
 	console.log(mDateStr + ': 103 Kafka PRODUCER; mMatid:' + mMatid);
 	var jsonmsga = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}';
@@ -51,7 +38,7 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	var jsonmsgj = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'j\",\"hmotnost\":12}';
 	
 	const	producer = new Producer(client);
-	//km = new KeyedMessage('key', 'message');
+
 	let payload = [
 		//{ topic: 'warehouse-movement', messages: '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}', partition: 0 },
 		{ topic: 'warehouse-movement', messages: jsonmsga, partition: 0 }
@@ -67,7 +54,7 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 		];
 	
 	console.log(mDateStr + ': 110 PRED Kafka PRODUCER.on');
-	producer.on('ready', function () {
+	producer.on('ready', async function () {
 		console.log(mDateStr + ': 111 PRED Kafka PRODUCER.SEND');
 		producer.send(payload, function (err, data) {
 			console.log(data);
@@ -149,6 +136,20 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	
 	// Consumer PART --------------------------------------------
 	/*
+	const topics = [
+        {
+            topic: kafkaTopic, 
+            partition: 0
+        }
+    ];
+	const options = {
+        autoCommit: true, 
+        fetchMaxWaitMs: 1000, 
+        fetchMaxBytes: 1024 * 1024, 
+        encoding: 'utf8', 
+        fromOffset: false
+    };
+	
     const consumer = new kafka.Consumer(client, topics, options)
 
     consumer.on('message', async (message) => {    
