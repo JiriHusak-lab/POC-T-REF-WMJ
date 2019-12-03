@@ -1,4 +1,5 @@
 const kafkaHost = process.env.KAFKA_HOST
+const kafkaPort = process.env.KAFKA_PORT
 const kafkaHostEnv = process.env.KAFKA_HOST_ENV
 const kafkaTopic = process.env.KAFKA_TOPIC
 const kafka = require('kafka-node')
@@ -9,7 +10,7 @@ var mDate = new Date();
 var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 
 try {
-    console.log(mDateStr + ': Kafka Consumer is booting up ... (ENVs: kafkaHost:'+kafkaHost + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )')
+    console.log(mDateStr + ': Kafka Consumer is booting up ... (ENVs: kafkaHost:\"' + kafkaHost + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
     //const client = new kafka.KafkaClient(kafkaHost)
     const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':9092'});
     //const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
@@ -25,7 +26,7 @@ try {
         fetchMaxBytes: 1024 * 1024, 
         encoding: 'utf8', 
         fromOffset: false
-    }
+    };
 
 	
 	console.log(mDateStr + ': 100 Kafka PRODUCER part start');//---------------------------------
@@ -39,16 +40,16 @@ try {
 	//var mMatid = mDate.toString('ddhmm');
 	var mMatid = podIP + '-' + moment().format('DDhhmm'); 
 	console.log(mDateStr + ': 103 Kafka PRODUCER; mMatid:' + mMatid);
-	var jsonmsga = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}'
-	var jsonmsgb = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'b\",\"hmotnost\":12}'
-	var jsonmsgc = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'c\",\"hmotnost\":12}'
-	var jsonmsgd = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'd\",\"hmotnost\":12}'
-	var jsonmsge = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'e\",\"hmotnost\":12}'
-	var jsonmsgf = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'f\",\"hmotnost\":12}'
-	var jsonmsgg = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'g\",\"hmotnost\":12}'
-	var jsonmsgh = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'h\",\"hmotnost\":12}'
-	var jsonmsgi = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'i\",\"hmotnost\":12}'
-	var jsonmsgj = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'j\",\"hmotnost\":12}'
+	var jsonmsga = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}';
+	var jsonmsgb = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'b\",\"hmotnost\":12}';
+	var jsonmsgc = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'c\",\"hmotnost\":12}';
+	var jsonmsgd = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'd\",\"hmotnost\":12}';
+	var jsonmsge = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'e\",\"hmotnost\":12}';
+	var jsonmsgf = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'f\",\"hmotnost\":12}';
+	var jsonmsgg = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'g\",\"hmotnost\":12}';
+	var jsonmsgh = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'h\",\"hmotnost\":12}';
+	var jsonmsgi = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'i\",\"hmotnost\":12}';
+	var jsonmsgj = '{\"mnozstvi\":8,\"mvm2\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'j\",\"hmotnost\":12}';
 	
 	var	producer = new Producer(client),
 		km = new KeyedMessage('key', 'message'),
@@ -65,7 +66,8 @@ try {
 		{ topic: 'warehouse-movement', messages: jsonmsgi, partition: 0 },
 		{ topic: 'warehouse-movement', messages: jsonmsgj, partition: 0 }
 		];
-	console.log(mDateStr + ': 110 PRED Kafka PRODUCER.on')
+	
+	console.log(mDateStr + ': 110 PRED Kafka PRODUCER.on');
 	producer.on('ready', function () {
 		producer.send(payloads, function (err, data) {
 			console.log(data);
@@ -73,6 +75,12 @@ try {
 		});
 		console.log("140 Producer.on ready");
 	});
+	
+    producer.on('error', (err) => {
+		mDate = new Date();
+		var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
+		console.log(mDateStr + '190: Producer on error' + err);
+	})	
 	console.log("200 Kafka PRODUCER part END");//---------------------------------
 	
 	
@@ -80,7 +88,7 @@ try {
 	while (true) {
 		// execute code as long as condition is true
 		var mMatid = podIP + '-' + moment().format('DDhhmm'); 
-		var jsonmsgX = '{\"mnozstvi\":8,\"mvm1\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}'
+		var jsonmsgX = '{\"mnozstvi\":8,\"mvm3\":\"wh1\",\"mvm2\":\"wh2\",\"kmat\":\"mat'+ mMatid + 'a\",\"hmotnost\":12}'
 		
 		var	producer = new Producer(client),
 		km = new KeyedMessage('key', 'message'),
@@ -89,13 +97,13 @@ try {
 		];
 		var mDate = new Date();
 		var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
-		console.log(mDateStr + ': 310 PRED Kafka PRODUCER.on WHILE')
+		console.log(mDateStr + ': 310 PRED Kafka PRODUCER.on WHILE');
 		producer.on('ready', function () {
 			producer.send(payloads, function (err, data) {
-				console.log(data);
+				console.log(mDateStr + ':Sent data:' + data);
 				console.log(mDateStr + ': 309 Producer.on ready');
 			});
-			console.log("340 Producer.on ready");
+			console.log(mDateStr + ':340 Producer.on ready");
 		});
 
 		var mDate = new Date();
@@ -103,20 +111,20 @@ try {
         producer.on('error', (err) => {
 			mDate = new Date();
 			var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
-			console.log(mDateStr + ': Producer WHILE on error' + err)
+			console.log(mDateStr + ': Producer WHILE on error' + err);
 		})		
 		
 		//setTimeout(function(){
 		//	i++;
 		//}, 3000);
-		console.log(mDateStr + ': 311 PRED Kafka PRODUCER.on WHILE  SLEEP')
+		console.log(mDateStr + ': 311 PRED Kafka PRODUCER.on WHILE  SLEEP');
 		sleep(60000, function() {
 			// executes after one second, and blocks the thread
 		});
 		var mDate = new Date();
 		var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');	
-		console.log(mDateStr + ': 311 PO Kafka PRODUCER.on WHILE  SLEEP')
-	}
+		console.log(mDateStr + ': 311 PO Kafka PRODUCER.on WHILE  SLEEP');
+	};
 	console.log("400 Kafka PRODUCER WHILE part END");//---------------------------------
 	
 	
