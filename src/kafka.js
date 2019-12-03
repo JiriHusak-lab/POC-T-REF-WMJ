@@ -87,6 +87,8 @@ try {
 		payloads = [
 				{ topic: 'warehouse-movement', messages: jsonmsgX, partition: 0 }
 		];
+		var mDate = new Date();
+		var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 		console.log(mDateStr + ': 310 PRED Kafka PRODUCER.on WHILE')
 		producer.on('ready', function () {
 			producer.send(payloads, function (err, data) {
@@ -95,7 +97,9 @@ try {
 			});
 			console.log("340 Producer.on ready");
 		});
-		
+
+		var mDate = new Date();
+		var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');		
         producer.on('error', (err) => {
 			mDate = new Date();
 			var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
@@ -105,10 +109,13 @@ try {
 		//setTimeout(function(){
 		//	i++;
 		//}, 3000);
-		
+		console.log(mDateStr + ': 311 PRED Kafka PRODUCER.on WHILE  SLEEP')
 		sleep(60000, function() {
 			// executes after one second, and blocks the thread
 		});
+		var mDate = new Date();
+		var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');	
+		console.log(mDateStr + ': 311 PO Kafka PRODUCER.on WHILE  SLEEP')
 	}
 	console.log("400 Kafka PRODUCER WHILE part END");//---------------------------------
 	
