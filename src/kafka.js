@@ -10,10 +10,10 @@ var mDate = new Date();
 var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 
 try {
-    console.log(mDateStr + ': Kafka Consumer is booting up ... (ENVs: kafkaHost:\"' + kafkaHost + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
+    console.log(mDateStr + ': Ver20191203:16:25 Kafka Consumer is booting up ... (ENVs: kafkaHost:\"' + kafkaHost + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
     //const client = new kafka.KafkaClient(kafkaHost)
-    const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':9092'});
-    //const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
+    //const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':9092'});
+    const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
     const topics = [
         {
             topic: kafkaTopic, 
@@ -82,6 +82,16 @@ try {
 		console.log(mDateStr + '190: Producer on error' + err);
 	})	
 	console.log("200 Kafka PRODUCER part END");//---------------------------------
+
+
+
+
+			producer.send(payloads, function (err, data) {
+				console.log(mDateStr + ':Sent data:' + data);
+				console.log(mDateStr + ': 309 Producer.on ready');
+			});	
+	
+	
 	
 	
 	console.log(mDateStr + ': 300 Kafka PRODUCER WHILE part start');//---------------------------------
@@ -95,9 +105,19 @@ try {
 		payloads = [
 				{ topic: 'warehouse-movement', messages: jsonmsgX, partition: 0 }
 		];
+
+			producer.send(payloads, function (err, data) {
+				console.log(mDateStr + ':Sent data:' + data);
+				console.log(mDateStr + ': 309 Producer.on ready');
+			});
+			
+			
+			
+
 		var mDate = new Date();
 		var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 		console.log(mDateStr + ': 310 PRED Kafka PRODUCER.on WHILE');
+/*
 		producer.on('ready', function () {
 			producer.send(payloads, function (err, data) {
 				console.log(mDateStr + ':Sent data:' + data);
@@ -113,7 +133,7 @@ try {
 			var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 			console.log(mDateStr + ': Producer WHILE on error' + err);
 		})		
-		
+*/		
 		//setTimeout(function(){
 		//	i++;
 		//}, 3000);
