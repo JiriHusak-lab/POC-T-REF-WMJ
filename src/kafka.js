@@ -3,7 +3,6 @@ const kafkaPort = process.env.KAFKA_PORT
 const kafkaHostEnv = process.env.KAFKA_HOST_ENV
 const kafkaTopic = process.env.KAFKA_TOPIC
 const kafka = require('kafka-node')
-const JournalRec = require('./models/journalrec')
 const podIP = process.env.MY_POD_IP
 
 var mDate = new Date();
@@ -152,7 +151,7 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 		var mDate = new Date();
 		var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 		console.log(mDateStr + ': 310 PRED Kafka PRODUCER.on WHILE');
-/*
+
 		producer.on('ready', function () {
 			producer.send(payloads, function (err, data) {
 				console.log(mDateStr + ':Sent data:' + data);
@@ -161,14 +160,12 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 			console.log(mDateStr + ':340 Producer.on ready');
 		});
 
-		var mDate = new Date();
-		var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');		
         producer.on('error', (err) => {
 			mDate = new Date();
 			var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 			console.log(mDateStr + ': Producer WHILE on error' + err);
 		})		
-*/		
+		
 		//setTimeout(function(){
 		//	i++;
 		//}, 3000);
