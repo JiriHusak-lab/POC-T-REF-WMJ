@@ -53,7 +53,7 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	
 	
 	
-		console.log(mDateStr + ': 010 PETR PRED Kafka PRODUCER.on');
+		console.log(mDateStr + ':  010 PETR PRED Kafka PRODUCER.on');
 	    producer.on('ready', async function() {
 			console.log(mDateStr + ': Kafka Producer is Ready to communicate with Kafka on: ' + kafkaHost + ':' + kafkaPort);
             let push_status = producer.send(payload, function (err, data) {
