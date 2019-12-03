@@ -25,7 +25,7 @@ try {
     const options = {
 		//groupID: 'wmj-journal',         //consumer group id
         autoCommit: false, 
-		autoCommitIntervalsMs: 5000;
+		autoCommitIntervalsMs: 5000,
         fetchMaxWaitMs: 1000, 
 		fetchMinBytes: 1,
         fetchMaxBytes: 1024 * 1024,
