@@ -43,8 +43,9 @@ try {
 		offset.fetch([
 			{ topic: 'warehouse-movement' }
 			], function (err, data) {
-		console.log(mDateStr + ': Offset fetch:' + data);
-
+					console.log(mDateStr + ': Offset fetch:' + data);
+			})
+			
         const journalrec = new JournalRec(JSON.parse(message.value))
         try {
             await journalrec.save()
@@ -61,9 +62,9 @@ try {
 			offset.fetch([
 				{ topic: 'warehouse-movement' }
 			], function (err, data) {
-			console.log(mDateStr + ': Offset fetch:' + data);
-
-});
+				console.log(mDateStr + ': Offset fetch:' + data);
+			});
+			
         }catch(e) {
             mDate = new Date();
             mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
