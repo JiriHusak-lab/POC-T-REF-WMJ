@@ -54,8 +54,16 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	
 	
 		console.log(mDateStr + ':  010 PETR PRED Kafka PRODUCER.on');
-	    producer.on('ready', async function() {
-			console.log(mDateStr + ': Kafka Producer is Ready to communicate with Kafka on: ' + kafkaHost + ':' + kafkaPort);
+    console.log('Going to use producer ..');
+    try {
+        // Kafka Producer Configuration 
+        console.log('Trying to connect to Kafka server: ' + kafkaHost + ':' + kafkaPort + ', topic: ' + kafkaTopic);
+        const Producer = kafka.Producer;
+        const client = new kafka.KafkaClient({kafkaHost: kafkaHost + ':'+ kafkaPort});
+        const producer = new Producer(client);
+    
+        producer.on('ready', async function() {
+            console.log(mDateStr + ': Kafka Producer is Ready to communicate with Kafka on: ' + kafkaHost + ':' + kafkaPort);
             let push_status = producer.send(payload, function (err, data) {
                 if (err) {
                     console.log('Broker update failed: ' + err);
@@ -72,6 +80,10 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
             console.log(mDateStr + ': [kafka-producer -> '+kafkaTopic+']: connection errored');
             throw err;
         })
+    }
+        catch(e) {
+        console.log(mDateStr + ': ' + e);
+    }
 		console.log(mDateStr + ': 020 PETR PO Kafka PRODUCER.on');
 	
 	
@@ -167,12 +179,8 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 			console.log(mDateStr + ': Producer WHILE on error' + err);
 		})		
 		
-		//setTimeout(function(){
-		//	i++;
-		//}, 3000);
 		console.log(mDateStr + ': 311 PRED Kafka PRODUCER.on WHILE  SLEEP');
 		sleep(60000, function() {
-			// executes after one second, and blocks the thread
 		});
 		var mDate = new Date();
 		var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');	
@@ -180,46 +188,7 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	};
 	console.log("400 Kafka PRODUCER WHILE part END");//---------------------------------
 	
-	
-	// Consumer PART --------------------------------------------
-	/*
-	const topics = [
-        {
-            topic: kafkaTopic, 
-            partition: 0
-        }
-    ];
-	const options = {
-        autoCommit: true, 
-        fetchMaxWaitMs: 1000, 
-        fetchMaxBytes: 1024 * 1024, 
-        encoding: 'utf8', 
-        fromOffset: false
-    };
-	
-    const consumer = new kafka.Consumer(client, topics, options)
 
-    consumer.on('message', async (message) => {    
-        const journalrec = new JournalRec(JSON.parse(message.value))
-        try {
-            await journalrec.save()
-            mDate = new Date();
-            var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
-            console.log(mDateStr + ': Journal record saved successfully: ' + message.value)
-        }catch(e) {
-            mDate = new Date();
-            var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
-            console.log(mDateStr + ': journalrec.save() error:' + e)
-        }
-    })
-
-    consumer.on('error', (err) => {
-        mDate = new Date();
-        var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
-        console.log(mDateStr + ': Consumer on error' + err)
-    })
-	*/
-	// END Consumer PART --------------------------------------------
 	
 //}catch(e) {
 //    console.log(mDateStr + ': HLAVNI Catch' + e)
