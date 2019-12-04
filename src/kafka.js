@@ -12,7 +12,8 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
     console.log(mDateStr + ': Ver20191203:21:41 Kafka Consumer is booting up ... (ENVs: kafkaHost:\"' + kafkaHost + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
 	
 	const Producer = kafka.Producer;
-    const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
+    //const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
+	const client = new kafka.KafkaClient({kafkaHost: kafkaHost + ':'+ kafkaPort});
 	const producer = new Producer(client);
 	
 	console.log(mDateStr + ': 100 Kafka PRODUCER part start');//---------------------------------
