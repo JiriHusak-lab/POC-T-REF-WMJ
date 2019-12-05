@@ -1,8 +1,9 @@
-const kafkaHost = process.env.KAFKA_HOST
+//const kafkaHost = process.env.KAFKA_HOST
 const kafkaPort = process.env.KAFKA_PORT
 const kafkaHostEnv = process.env.KAFKA_HOST_ENV
 const kafkaTopic = process.env.KAFKA_TOPIC
 const kafka = require('kafka-node')
+const pafka = require('pafka-node')
 const podIP = process.env.MY_POD_IP
 
 var mDate = new Date();
@@ -12,8 +13,8 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
     console.log(mDateStr + ': Ver20191203:21:41 Kafka Consumer is booting up ... (ENVs: kafkaHost:\"' + kafkaHost + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
 	
 	const Producer = kafka.Producer;
-    //const client = new kafka.KafkaClient({kafkaHost: 'apache-kafka:9092'});
-	const client = new kafka.KafkaClient({kafkaHost: kafkaHost + ':'+ kafkaPort});
+    const client = new kafka.KafkaClient({kafkaHost: 'apache-safka:1111'});
+	//const client = new kafka.KafkaClient({kafkaHost: kafkaHost + ':'+ kafkaPort});
 	const producer = new Producer(client);
 	
 	console.log(mDateStr + ': 100 Kafka PRODUCER part start');//---------------------------------
