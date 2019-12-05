@@ -19,20 +19,37 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 
 	const Producer = kafka.Producer;
     //const client = new kafka.KafkaClient({kafkaHost: 'apache-safka:1111'});
-	var client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':'+ kafkaPort});
+	const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':'+ kafkaPort});
+	client.on('ready', function (){
+        console.log('client ready event');
+    }) 
 	client.on('error', function (err) {
         console.log('client error event: ', err);
     });
 	
-	
-	if (client.ready) {
+	var client2 = new kafka.Client('apache-kafka:9092');
+	client2.on('ready', function (){
+        console.log('client ready event');
+    }) 
+	client2.on('error', function (err) {
+        console.log('client error event: ', err);
+    });
+	if (client2.ready) {
 		console.log('client is ready');
 	}
 	else {
 		console.log('client is not ready');
 	}
 
+	const client3 = new kafka.KafkaClient({kafkaHost:'apache-kafka:9092'});
+	client3.on('ready', function (){
+        console.log('client ready event');
+    }) 
+	client3.on('error', function (err) {
+        console.log('client error event: ', err);
+    });
 	
+
 	producer = new Producer(client, options);
 	if (producer.ready) {
 		console.log('producer is ready');
