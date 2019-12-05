@@ -27,19 +27,6 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
         console.log('client error event: ', err);
     });
 	
-	var client2 = new kafka.Client('apache-kafka:9092');
-	client2.on('ready', function (){
-        console.log('client ready event');
-    }) 
-	client2.on('error', function (err) {
-        console.log('client error event: ', err);
-    });
-	if (client2.ready) {
-		console.log('client is ready');
-	}
-	else {
-		console.log('client is not ready');
-	}
 
 	const client3 = new kafka.KafkaClient({kafkaHost:'apache-kafka:9092'});
 	client3.on('ready', function (){
