@@ -46,6 +46,7 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
                                   client.close();
                         })
 				}
+			})
 	})
 	
 	console.log(mDateStr + ': 100 Kafka PRODUCER part start');//---------------------------------
