@@ -1,4 +1,4 @@
-//const kafkaHost = process.env.KAFKA_HOST
+//const kafkaHostEnv = process.env.KAFKA_HOST
 const kafkaPort = process.env.KAFKA_PORT
 const kafkaHostEnv = process.env.KAFKA_HOST_ENV
 const kafkaTopic = process.env.KAFKA_TOPIC
@@ -10,7 +10,7 @@ var mDate = new Date();
 var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 
 //try {
-    console.log(mDateStr + ': Ver20191203:21:41 Kafka Consumer is booting up ... (ENVs: kafkaHost:\"' + kafkaHost + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
+    console.log(mDateStr + ': Ver20191203:21:41 Kafka Consumer is booting up ... (ENVs: kafkaHostEnv:\"' + kafkaHostEnv + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
 	
 	var options = {};
 
@@ -20,7 +20,7 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 
 	const Producer = kafka.Producer;
     const client = new kafka.KafkaClient({kafkaHost: 'apache-safka:1111'});
-	//const client = new kafka.KafkaClient({kafkaHost: kafkaHost + ':'+ kafkaPort});
+	//const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':'+ kafkaPort});
 	producer = new Producer(client, options);
 	
 	console.log(mDateStr + ': 100 Kafka PRODUCER part start');//---------------------------------
@@ -64,13 +64,13 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
     console.log('Going to use producer ..');
     try {
         // Kafka Producer Configuration 
-        console.log('Trying to connect to Kafka server: ' + kafkaHost + ':' + kafkaPort + ', topic: ' + kafkaTopic);
+        console.log('Trying to connect to Kafka server: ' + kafkaHostEnv + ':' + kafkaPort + ', topic: ' + kafkaTopic);
         const Producer = kafka.Producer;
-        const client = new kafka.KafkaClient({kafkaHost: kafkaHost + ':'+ kafkaPort});
+        const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':'+ kafkaPort});
         const producer = new Producer(client);
     
         producer.on('ready', function(err, response) {
-            console.log(mDateStr + ': Kafka Producer is Ready to communicate with Kafka on: ' + kafkaHost + ':' + kafkaPort);
+            console.log(mDateStr + ': Kafka Producer is Ready to communicate with Kafka on: ' + kafkaHostEnv + ':' + kafkaPort);
 			
 			client.refreshMetadata(["test"], function(err3) {
 				if (!err3) {
