@@ -1,6 +1,5 @@
-//const kafkaHostEnv = process.env.KAFKA_HOST
+const kafkaHostEnv = process.env.KAFKA_HOST
 const kafkaPort = process.env.KAFKA_PORT
-const kafkaHostEnv = process.env.KAFKA_HOST_ENV
 const kafkaTopic = process.env.KAFKA_TOPIC
 const kafka = require('kafka-node')
 //const pafka = require('pafka-node')
@@ -10,7 +9,7 @@ var mDate = new Date();
 var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 
 //try {
-    console.log(mDateStr + ': Ver20191203:21:41 Kafka Consumer is booting up ... (ENVs: kafkaHostEnv:\"' + kafkaHostEnv + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
+    console.log(mDateStr + ': Ver20191203:21:41 Kafka Consumer is booting up ... (ENVs: kafkaHost:\"' + kafkaHostEnv + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
 	
 	var options = {};
 
@@ -19,8 +18,8 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	options.partitionerType = 1
 
 	const Producer = kafka.Producer;
-    const client = new kafka.KafkaClient({kafkaHost: 'apache-safka:1111'});
-	//const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':'+ kafkaPort});
+    //const client = new kafka.KafkaClient({kafkaHost: 'apache-safka:1111'});
+	const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':'+ kafkaPort});
 	producer = new Producer(client, options);
 	if (client.ready) {
 		console.log('client is ready');
