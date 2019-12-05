@@ -85,7 +85,7 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 	
 	
 	
-		console.log(mDateStr + ':  010 PETR PRED Kafka PRODUCER.on');
+	console.log(mDateStr + ':  010 PETR PRED Kafka PRODUCER.on');
     console.log('Going to use producer ..');
     try {
         // Kafka Producer Configuration 
@@ -125,7 +125,7 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
             console.log(mDateStr + ': [kafka-producer -> '+kafkaTopic+']: connection errored');
             throw err;
         })
-    }
+    
         catch(e) {
         console.log(mDateStr + ': ' + e);
     }
