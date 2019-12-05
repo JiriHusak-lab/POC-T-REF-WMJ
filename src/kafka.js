@@ -47,9 +47,6 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
                         })
 				}
 	})
-	else {
-		console.log(mDateStr + ': Kafka Producer.on is NOT Ready');
-	}
 	
 	console.log(mDateStr + ': 100 Kafka PRODUCER part start');//---------------------------------
 	var mDate = new Date();
