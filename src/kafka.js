@@ -19,11 +19,11 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 
 	const Producer = kafka.Producer;
     //const client = new kafka.KafkaClient({kafkaHost: 'apache-safka:1111'});
-	const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':'+ kafkaPort});
-	client.on('ready', function (){
+	const mujclient = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':'+ kafkaPort});
+	mujclient.on('ready', function (){
         console.log('client ready event');
     }) 
-	client.on('error', function (err) {
+	mujclient.on('error', function (err) {
         console.log('client error event: ', err);
     });
 	
@@ -37,7 +37,7 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
     });
 	
 
-	producer = new Producer(client, options);
+	producer = new Producer(mujclient, options);
 	if (producer.ready) {
 		console.log('producer is ready');
 	}
