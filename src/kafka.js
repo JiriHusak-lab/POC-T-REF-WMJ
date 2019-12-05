@@ -22,6 +22,34 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
     const client = new kafka.KafkaClient({kafkaHost: 'apache-safka:1111'});
 	//const client = new kafka.KafkaClient({kafkaHost: kafkaHostEnv + ':'+ kafkaPort});
 	producer = new Producer(client, options);
+	if (client.ready) {
+		console.log('client is ready');
+	}
+	else {
+		console.log('client is not ready');
+	}
+
+	if (producer.ready) {
+		console.log('producer is ready');
+	}
+	else {
+		console.log('producer is not ready');
+	}
+
+	producer.on('ready', function(err, response) {
+            console.log(mDateStr + ': Kafka Producer is Ready to communicate with Kafka on: ' + kafkaHostEnv + ':' + kafkaPort);
+			
+			client.refreshMetadata(["test"], function(err3) {
+				if (!err3) {
+                        producer.send(payload, function(err2, result) {
+                                  producer.close();
+                                  client.close();
+                        })
+				}
+	})
+	else {
+		console.log(mDateStr + ': Kafka Producer.on is NOT Ready');
+	}
 	
 	console.log(mDateStr + ': 100 Kafka PRODUCER part start');//---------------------------------
 	var mDate = new Date();
@@ -80,6 +108,7 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
                         })
 				}
 			})
+			else ()
 	   
 	   
             let push_status = producer.send(payload, function (err, data) {
