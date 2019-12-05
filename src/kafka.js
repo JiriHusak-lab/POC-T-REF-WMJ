@@ -3,7 +3,7 @@ const kafkaPort = process.env.KAFKA_PORT
 const kafkaHostEnv = process.env.KAFKA_HOST_ENV
 const kafkaTopic = process.env.KAFKA_TOPIC
 const kafka = require('kafka-node')
-const pafka = require('pafka-node')
+//const pafka = require('pafka-node')
 const podIP = process.env.MY_POD_IP
 
 var mDate = new Date();
@@ -12,10 +12,16 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
 //try {
     console.log(mDateStr + ': Ver20191203:21:41 Kafka Consumer is booting up ... (ENVs: kafkaHost:\"' + kafkaHost + '\"; kafkaPort:' + kafkaPort + '; kafkaTopic:' + kafkaTopic + '; kafkaHostEnv:' + kafkaHostEnv + '; )');
 	
+	var options = {};
+
+	options.requireAcks = 1
+	options.ackTimeoutMs = 100
+	options.partitionerType = 1
+
 	const Producer = kafka.Producer;
     const client = new kafka.KafkaClient({kafkaHost: 'apache-safka:1111'});
 	//const client = new kafka.KafkaClient({kafkaHost: kafkaHost + ':'+ kafkaPort});
-	const producer = new Producer(client);
+	producer = new Producer(client, options);
 	
 	console.log(mDateStr + ': 100 Kafka PRODUCER part start');//---------------------------------
 	var mDate = new Date();
@@ -63,8 +69,19 @@ var mDateStr = mDate.toString('dddd MMM yyyy h:mm:ss');
         const client = new kafka.KafkaClient({kafkaHost: kafkaHost + ':'+ kafkaPort});
         const producer = new Producer(client);
     
-        producer.on('ready', async function() {
+        producer.on('ready', function(err, response) {
             console.log(mDateStr + ': Kafka Producer is Ready to communicate with Kafka on: ' + kafkaHost + ':' + kafkaPort);
+			
+			client.refreshMetadata(["test"], function(err3) {
+				if (!err3) {
+                        producer.send(payload, function(err2, result) {
+                                  producer.close();
+                                  client.close();
+                        })
+				}
+			})
+	   
+	   
             let push_status = producer.send(payload, function (err, data) {
                 if (err) {
                     console.log('Broker update failed: ' + err);
