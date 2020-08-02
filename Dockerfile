@@ -14,7 +14,7 @@ RUN npm config set registry https://registry.npmjs.org
 COPY package.json /app/package.json
 
 #JHUSAK 20200802
-RUN npm audit
+#RUN npm audit
 
 #RUN npm install \
 # && npm ls \
