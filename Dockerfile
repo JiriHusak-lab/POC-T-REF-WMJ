@@ -7,12 +7,14 @@ WORKDIR /app
 
 #JHUSAK 20200802
 RUN npm i npm@latest -g
-RUN npm audit
 
 #RUN npm install -g nodemon
 RUN npm config set registry https://registry.npmjs.org
 
 COPY package.json /app/package.json
+
+#JHUSAK 20200802
+RUN npm audit
 
 #RUN npm install \
 # && npm ls \
