@@ -4,7 +4,8 @@
 FROM docker.io/library/centos:7
 
 RUN yum install -y epel-release
-RUN /usr/bin/curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
+#RUN /usr/bin/curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
+RUN /usr/bin/curl --silent --location https://rpm.nodesource.com/setup_12.x | bash -
 RUN yum install -y nodejs
 
 #RUN yum install -y python2 node-gyp gcc make unixODBC
