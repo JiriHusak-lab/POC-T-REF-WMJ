@@ -1,12 +1,9 @@
 #JHUSAK 20200802
 #FROM node:8.9-alpine
-FROM node
+FROM node:12
 
 RUN mkdir -p /app
 WORKDIR /app
-
-#JHUSAK 20200802
-RUN npm i npm@latest -g
 
 #RUN npm install -g nodemon
 RUN npm config set registry https://registry.npmjs.org
@@ -21,7 +18,8 @@ COPY package.json /app/package.json
 # && npm cache clean --force \
 # && mv /app/node_modules /node_modules
 
-RUN npm install 
+#RUN npm install 
+RUN npm i npm@latest -g
 #RUN npm ls
 RUN npm cache clean --force 
 RUN mv /app/node_modules /node_modules
